@@ -2,6 +2,7 @@ from flask import *
 from dotenv import load_dotenv
 import os
 import requests
+import yt_dlp
 
 load_dotenv()
 
@@ -21,8 +22,7 @@ def index():
         titulo_short_1, titulo_short_2, titulo_short_3, titulo_short_4, titulo_short_5 = request.form.get("titulo_short_1"), request.form.get("titulo_short_2"), request.form.get("titulo_short_3"), request.form.get("titulo_short_4"), request.form.get("titulo_short_5")
         inicio_short_1, inicio_short_2, inicio_short_3, inicio_short_4, inicio_short_5 = request.form.get("inicio_short_1"), request.form.get("inicio_short_2"), request.form.get("inicio_short_3"), request.form.get("inicio_short_4"), request.form.get("inicio_short_5")
         final_short_1, final_short_2, final_short_3, final_short_4, final_short_5 = request.form.get("final_short_1"), request.form.get("final_short_2"), request.form.get("final_short_3"), request.form.get("final_short_4"), request.form.get("final_short_5")
-        
-        # continua con la potencia del whisper, se deberia elegir para cada short??..
+        potencia_whisper_1, potencia_whisper_2, potencia_whisper_3, potencia_whisper_4, potencia_whisper_5 = request.form.get("potencia_whisper_1"), request.form.get("potencia_whisper_2"), request.form.get("potencia_whisper_3"), request.form.get("potencia_whisper_4"), request.form.get("potencia_whisper_5")
 
 
 
