@@ -14,15 +14,26 @@ app.secret_key = APP_SECRET_KEY
 @app.route('/', methods=['GET', 'POST'])
 def index():
     error = None
+    error_link_youtube = None
     if not session.get("flag_session"):
         return redirect(url_for("login"))
 
     if request.method == "POST":
+        titulos = {}
         youtube_url = request.form.get("youtube_url")
-        titulo_short_1, titulo_short_2, titulo_short_3, titulo_short_4, titulo_short_5 = request.form.get("titulo_short_1"), request.form.get("titulo_short_2"), request.form.get("titulo_short_3"), request.form.get("titulo_short_4"), request.form.get("titulo_short_5")
+        titulos["titulo_short_1"], titulos["titulo_short_2"], titulos["titulo_short_3"], titulos["titulo_short_4"], titulos["titulo_short_5"] = request.form.get("titulo_short_1"), request.form.get("titulo_short_2"), request.form.get("titulo_short_3"), request.form.get("titulo_short_4"), request.form.get("titulo_short_5")
         inicio_short_1, inicio_short_2, inicio_short_3, inicio_short_4, inicio_short_5 = request.form.get("inicio_short_1"), request.form.get("inicio_short_2"), request.form.get("inicio_short_3"), request.form.get("inicio_short_4"), request.form.get("inicio_short_5")
         final_short_1, final_short_2, final_short_3, final_short_4, final_short_5 = request.form.get("final_short_1"), request.form.get("final_short_2"), request.form.get("final_short_3"), request.form.get("final_short_4"), request.form.get("final_short_5")
         potencia_whisper_1, potencia_whisper_2, potencia_whisper_3, potencia_whisper_4, potencia_whisper_5 = request.form.get("potencia_whisper_1"), request.form.get("potencia_whisper_2"), request.form.get("potencia_whisper_3"), request.form.get("potencia_whisper_4"), request.form.get("potencia_whisper_5")
+        
+        if not "www.youtube.com" in youtube_url:
+            error_link_youtube = "Ingresa un link de youtube valido"
+            return render_template("index.html", error_link_youtube=error_link_youtube)
+        
+        for i in range(6):
+             
+            
+
 
 
 
