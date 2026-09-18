@@ -32,7 +32,7 @@ La app debe tomar el video ingresado por el usuario, el título, la potencia del
 ## Reglas de Negocio
 1. Solo se puede procesar un video largo a la vez por usuario.
 2. Solo se aceptan links de videos de YouTube y que estos sean publicos.
-3. Los shorts deben durar mínimo 00:15 y máximo 2:57 minutos.
+3. Los shorts deben durar mínimo 00:05 y máximo 2:56 minutos.
 4. El tiempo de inicio del short debe ser menor que el tiempo de término.
 5. Solo se pueden crear hasta 5 shorts a la vez.
 6. El título se separa en dos líneas con un máximo de 15 caracteres por línea (máximo 2 líneas = 30 caracteres).
@@ -40,7 +40,7 @@ La app debe tomar el video ingresado por el usuario, el título, la potencia del
 ## Casos Límite (Edge Cases)
 1. **Link distinto a YouTube**: Si el link para el video largo es distinto a YouTube, rechazar procesamiento con error.
 2. **Tiempo inválido**: Si el tiempo de inicio del short es mayor al final, rechazar con error.
-3. **Duración inválida**: Si se intenta crear un short menor de 15 segundos o mayor a 2:57 minutos, rechazar con error.
+3. **Duración inválida**: Si se intenta crear un short menor de 5 segundos o mayor a 2:55 minutos, rechazar con error.
 4. **Caracteres del título**: Título con más de 15 letras por línea (2 líneas máximo), rechazar con error.
 5. **Fallo de descarga**: Si el video de YouTube es privado o no se puede descargar, mostrar error claro.
 

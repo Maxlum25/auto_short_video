@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <h2>Crea tus Shorts</h2>
+    <form method="POST">
+        <label for="youtube_url">Link Video de Youtube</label>
+        <input type="url" name="youtube_url" required>
+
+        <label for="titulo_short_1">Titulo Short</label>
+        <input type="text" name="titulo_short_1">
+        <label for="inicio_short_1">Inicio</label>
+        <input type="text" name="inicio_short_1" placeholder="0:00:00" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric" required>
+        <label for="final_short_1">Final</label>
+        <input type="text" name="final_short_1" placeholder="0:01:00" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric" required>
+        <label for="potencia_whisper_1">Precisión Substitulos</label>
+        <select name="potencia_whisper_1">
+            <option value="small">Normal</option>
+            <option value="medium">Alta</option>
+            <option value="tiny">Baja</option>
+        </select>
+
+        <label for="titulo_short_2">Titulo Short</label>
+        <input type="text" name="titulo_short_2">
+        <label for="inicio_short_2">Inicio</label>
+        <input type="text" name="inicio_short_2" placeholder="0:00:00" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric">
+        <label for="final_short_2">Final</label>
+        <input type="text" name="final_short_2" placeholder="0:01:00" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric">
+        <label for="potencia_whisper_2">Precisión Substitulos</label>
+        <select name="potencia_whisper_2">
+            <option value="small">Normal</option>
+            <option value="medium">Alta</option>
+            <option value="tiny">Baja</option>
+        </select>
+
+        <label for="titulo_short_3">Titulo Short</label>
+        <input type="text" name="titulo_short_3">
+        <label for="inicio_short_3">Inicio</label>
+        <input type="text" name="inicio_short_3" placeholder="0:00:00" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric">
+        <label for="final_short_3">Final</label>
+        <input type="text" name="final_short_3" placeholder="0:01:00" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric">
+        <label for="potencia_whisper_3">Precisión Substitulos</label>
+        <select name="potencia_whisper_3">
+            <option value="small">Normal</option>
+            <option value="medium">Alta</option>
+            <option value="tiny">Baja</option>
+        </select>
+
+        <label for="titulo_short_4">Titulo Short</label>
+        <input type="text" name="titulo_short_4">
+        <label for="inicio_short_4">Inicio</label>
+        <input type="text" name="inicio_short_4" placeholder="0:00:00" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric">
+        <label for="final_short_4">Final</label>
+        <input type="text" name="final_short_4" placeholder="0:01:00" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric">
+        <label for="potencia_whisper_4">Precisión Substitulos</label>
+        <select name="potencia_whisper_4">
+            <option value="small">Normal</option>
+            <option value="medium">Alta</option>
+            <option value="tiny">Baja</option>
+        </select>
+
+        <label for="titulo_short_5">Titulo Short</label>
+        <input type="text" name="titulo_short_5">
+        <label for="inicio_short_5">Inicio</label>
+        <input type="text" name="inicio_short_5" placeholder="0:00:00" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric">
+        <label for="final_short_5">Final</label>
+        <input type="text" name="final_short_5" placeholder="0:01:00" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric">
+        <label for="potencia_whisper_5">Precisión Substitulos</label>
+        <select name="potencia_whisper_5">
+            <option value="small">Normal</option>
+            <option value="medium">Alta</option>
+            <option value="tiny">Baja</option>
+        </select>
+
+        <input type="submit" value="Crear">
+    </form>
+</body>
+</html>

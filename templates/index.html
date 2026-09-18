@@ -1,83 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear Shorts — Auto Short Video</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+header{position:sticky;top:0;background:#0f172af2;backdrop-filter:blur(8px);border-bottom:1px solid #1e293b;padding:14px 24px;display:flex;justify-content:space-between;align-items:center}
+header b{font-size:18px} header b i{font-style:normal;background:linear-gradient(90deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+header a{color:#94a3b8;text-decoration:none;font-size:14px}
+main{max-width:900px;margin:0 auto;padding:24px}
+.hero{background:linear-gradient(135deg,#7c3aed33,#06b6d433);border:1px solid #334155;border-radius:16px;padding:24px;margin-bottom:20px}
+.hero h1{font-size:24px;margin-bottom:6px}
+.hero p{color:#94a3b8;font-size:14px}
+.alert{padding:12px;border-radius:10px;margin-bottom:12px;font-size:14px}
+.alert.red{background:#7f1d1d;border:1px solid #ef4444;color:#fecaca}
+.ok{background:#064e3b;border:1px solid #10b981;color:#a7f3d0;padding:14px;border-radius:12px;margin-bottom:16px}
+.ok a{color:#fff;font-weight:700}
+.card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:18px;margin-bottom:14px}
+.card h3{font-size:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.badge{font-size:11px;padding:3px 10px;border-radius:99px;background:#334155;color:#94a3b8}
+.badge.req{background:#7c3aed;color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.full{grid-column:1/-1}
+label{font-size:12px;color:#94a3b8;display:block;margin-bottom:5px}
+input,select{width:100%;padding:10px;border-radius:10px;border:1px solid #334155;background:#0f172a;color:#fff;outline:none}
+input:focus,select:focus{border-color:#7c3aed}
+.hint{font-size:11px;color:#64748b;margin-top:4px}
+.url-box{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:18px;margin-bottom:16px}
+.btn{width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:800;font-size:16px;cursor:pointer;margin-top:8px}
+.btn:hover{opacity:.92}
+footer{text-align:center;color:#475569;font-size:12px;padding:20px}
+</style>
 </head>
 <body>
-    <h1>Dashboard</h1>
-    <h2>Crea tus Shorts</h2>
-    <form method="POST">
-        <label for="youtube_url">Link Video de Youtube</label>
-        <input type="url" name="youtube_url" required>
+<header><b>🎬 Auto <i>Short Video</i></b><a href="/login">Cerrar sesión</a></header>
+<main>
+  <div class="hero">
+    <h1>Crea tus Shorts</h1>
+    <p>Pega el link del video largo, define hasta 5 fragmentos HH:MM:SS (mín 15s, máx 2:56) y descarga el resultado vertical 9:16 con subtítulos.</p>
+  </div>
 
-        <label for="titulo_short_1">Titulo Short</label>
-        <input type="text" name="titulo_short_1">
-        <label for="inicio_short_1">Inicio</label>
-        <input type="text" name="inicio_short_1" required>
-        <label for="final_short_1">Final</label>
-        <input type="text" name="final_short_1" required>
-        <label for="potencia_whisper_1">Precisión Substitulos</label>
-        <select name="potencia_whisper_1">
-            <option value="small">Normal</option>
-            <option value="medium">Alta</option>
-            <option value="tiny">Baja</option>
-        </select>
+  {% if error_link_youtube %}<div class="alert red">🔗 {{ error_link_youtube }}</div>{% endif %}
+  {% if error_time_range %}<div class="alert red">⏱️ {{ error_time_range }}</div>{% endif %}
+  {% if error_titulo %}<div class="alert red">✏️ {{ error_titulo }}</div>{% endif %}
+  {% if generados %}
+  <div class="ok">✅ Shorts listos:<br>{% for g in generados %} <a href="/descargar/{{ loop.index }}">⬇️ Descargar short {{ loop.index }}</a><br>{% endfor %}</div>
+  {% endif %}
 
-        <label for="titulo_short_2">Titulo Short</label>
-        <input type="text" name="titulo_short_2">
-        <label for="inicio_short_2">Inicio</label>
-        <input type="text" name="inicio_short_2">
-        <label for="final_short_2">Final</label>
-        <input type="text" name="final_short_2">
-        <label for="potencia_whisper_2">Precisión Substitulos</label>
-        <select name="potencia_whisper_2">
-            <option value="small">Normal</option>
-            <option value="medium">Alta</option>
-            <option value="tiny">Baja</option>
-        </select>
+  <form method="POST">
+    <div class="url-box">
+      <label>Link Video de YouTube *</label>
+      <input type="url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=..." required value="{{ request.form.get('youtube_url','') }}">
+      <div class="hint">Solo videos públicos.</div>
+    </div>
 
-        <label for="titulo_short_3">Titulo Short</label>
-        <input type="text" name="titulo_short_3">
-        <label for="inicio_short_3">Inicio</label>
-        <input type="text" name="inicio_short_3">
-        <label for="final_short_3">Final</label>
-        <input type="text" name="final_short_3">
-        <label for="potencia_whisper_3">Precisión Substitulos</label>
-        <select name="potencia_whisper_3">
-            <option value="small">Normal</option>
-            <option value="medium">Alta</option>
-            <option value="tiny">Baja</option>
-        </select>
+    {% for i in [1,2,3,4,5] %}
+    <div class="card">
+      <h3>Short {{ i }} {% if i==1 %}<span class="badge req">obligatorio</span>{% else %}<span class="badge">opcional</span>{% endif %}</h3>
+      <div class="grid">
+        <div class="full">
+          <label>Título (máx 30, se muestra arriba)</label>
+          <input type="text" name="titulo_short_{{ i }}" maxlength="34" placeholder="Mi momento épico ✨" {% if i==1 %}required{% endif %}>
+        </div>
+        <div>
+          <label>Inicio HH:MM:SS *</label>
+          <input type="text" name="inicio_short_{{ i }}" placeholder="0:00:10" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric" {% if i==1 %}required{% endif %}>
+        </div>
+        <div>
+          <label>Final HH:MM:SS *</label>
+          <input type="text" name="final_short_{{ i }}" placeholder="0:01:00" pattern="^\d+:[0-5]\d:[0-5]\d$" inputmode="numeric" {% if i==1 %}required{% endif %}>
+        </div>
+        <div class="full">
+          <label>Precisión subtítulos</label>
+          <select name="potencia_whisper_{{ i }}">
+            <option value="tiny">Baja — rápida</option>
+            <option value="small" selected>Normal — equilibrada</option>
+            <option value="medium">Alta — lenta</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
 
-        <label for="titulo_short_4">Titulo Short</label>
-        <input type="text" name="titulo_short_4">
-        <label for="inicio_short_4">Inicio</label>
-        <input type="text" name="inicio_short_4">
-        <label for="final_short_4">Final</label>
-        <input type="text" name="final_short_4">
-        <label for="potencia_whisper_4">Precisión Substitulos</label>
-        <select name="potencia_whisper_4">
-            <option value="small">Normal</option>
-            <option value="medium">Alta</option>
-            <option value="tiny">Baja</option>
-        </select>
-
-        <label for="titulo_short_5">Titulo Short</label>
-        <input type="text" name="titulo_short_5">
-        <label for="inicio_short_5">Inicio</label>
-        <input type="text" name="inicio_short_5">
-        <label for="final_short_5">Final</label>
-        <input type="text" name="final_short_5">
-        <label for="potencia_whisper_5">Precisión Substitulos</label>
-        <select name="potencia_whisper_5">
-            <option value="small">Normal</option>
-            <option value="medium">Alta</option>
-            <option value="tiny">Baja</option>
-        </select>
-
-        <input type="submit" value="Crear">
-    </form>
+    <button class="btn" type="submit">✂️ Crear shorts</button>
+  </form>
+  <footer>Solo 1 video a la vez · los archivos se borran tras descargar</footer>
+</main>
 </body>
 </html>
