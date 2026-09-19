@@ -45,11 +45,13 @@ footer{text-align:center;color:#475569;font-size:12px;padding:20px}
   {% if error_link_youtube %}<div class="alert red">🔗 {{ error_link_youtube }}</div>{% endif %}
   {% if error_time_range %}<div class="alert red">⏱️ {{ error_time_range }}</div>{% endif %}
   {% if error_titulo %}<div class="alert red">✏️ {{ error_titulo }}</div>{% endif %}
+  {% if error_descarga %}<div class="alert red">⬇️ {{ error_descarga }}</div>{% endif %}
   {% if generados %}
-  <div class="ok">✅ Shorts listos:<br>{% for g in generados %} <a href="/descargar/{{ loop.index }}">⬇️ Descargar short {{ loop.index }}</a><br>{% endfor %}</div>
+  <div class="ok">✅ Shorts listos:<br>{% for g in generados %} <a href="/descargar/{{ g }}" download>⬇️ Descargar {{ g }}</a><br>{% endfor %}</div>
   {% endif %}
 
   <form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ session['csrf_token'] }}">
     <div class="url-box">
       <label>Link Video de YouTube *</label>
       <input type="url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=..." required value="{{ request.form.get('youtube_url','') }}">
@@ -62,7 +64,7 @@ footer{text-align:center;color:#475569;font-size:12px;padding:20px}
       <div class="grid">
         <div class="full">
           <label>Título (máx 30, se muestra arriba)</label>
-          <input type="text" name="titulo_short_{{ i }}" maxlength="34" placeholder="Mi momento épico ✨" {% if i==1 %}required{% endif %}>
+          <input type="text" name="titulo_short_{{ i }}" maxlength="34" placeholder="Mi momento épico ✨">
         </div>
         <div>
           <label>Inicio HH:MM:SS *</label>
@@ -86,7 +88,7 @@ footer{text-align:center;color:#475569;font-size:12px;padding:20px}
 
     <button class="btn" type="submit">✂️ Crear shorts</button>
   </form>
-  <footer>Solo 1 video a la vez · los archivos se borran tras descargar</footer>
+  <footer>Solo 1 video a la vez · los shorts se guardan 30 min y luego se borran</footer>
 </main>
 </body>
 </html>

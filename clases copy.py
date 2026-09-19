@@ -26,7 +26,7 @@ class ShortParams:
         model = WhisperModel(self.potencia_whisper, device="cpu", compute_type="int8")
         segments, _ = model.transcribe(f"multimedia/salida.mp4", language="es", word_timestamps=True)
         n=1
-        with open("salida_corta.srt", "w", encoding="utf-8") as f:
+        with open("multimedia/salida_corta.srt", "w", encoding="utf-8") as f:
             for seg in segments:
                 if not seg.words:
                     continue
@@ -42,11 +42,12 @@ class ShortParams:
 
         base = "crop=trunc(ih*9/16/2)*2:ih"
         subs = (
-            "subtitles=salida_corta.srt:"
-            "force_style='FontSize=22,PrimaryColour=&H00FFFF,BackColour=&H80000000,BorderStyle=4,MarginV=60'"
+            "subtitles='multimedia/salida_corta.srt':"
+            r"force_style='FontSize=22\,PrimaryColour=&H00FFFF\,BackColour=&H80000000\,BorderStyle=4\,MarginV=60'"
         )
         if self.titulo_short and self.titulo_short.strip():
-            titulo = self.titulo_short.replace("'", r"\'").replace(":", r"\:")
+            titulo = (self.titulo_short.replace("\\", r"\\").replace("'", r"\'")
+                      .replace(":", r"\:").replace(",", r"\,"))
             draw = (
                 f"drawtext=fontfile=/usr/share/fonts/TTF/DejaVuSans-Bold.ttf:text='{titulo}':"
                 "fontsize=26:fontcolor=white:x=(w-text_w)/2:y=100:"

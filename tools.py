@@ -1,11 +1,12 @@
+import os
 import yt_dlp
 
-def es_publico(url: str) -> bool: # Verifica si el video de youtube es publico o privado, devuelve True si es publico y False si es privado
+def es_publico(url: str) -> bool: # Verifica si el video de youtube es publico, devuelve True solo si es publico
     opts = {"quiet": True, "no_warnings": True, "skip_download": True}
     try:
         with yt_dlp.YoutubeDL(opts) as ydl:
             info = ydl.extract_info(url, download=False)
-            return True
+            return (info or {}).get("availability") in ("public", None) and not (info or {}).get("is_private")
     except Exception:
         return False
 
@@ -33,10 +34,11 @@ def a_lineas(words, max_width=20): # Divide una lista de palabras en líneas de 
         lineas.append((cur, cur_w[0].start, cur_w[-1].end))
     return lineas
 
-def descargar_video(url): # Descarga el video de youtube en formato mp4 y lo guarda en la carpeta multimedia con el nombre entrada.mp4
+def descargar_video(url, workdir="multimedia"): # Descarga el video de youtube en formato mp4 y lo guarda en workdir con el nombre entrada.mp4
+    os.makedirs(workdir, exist_ok=True)
     ydl_opts = {
             "format": "bestvideo[vcodec*=avc1][height<=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[vcodec*=avc1][height<=1080]+bestaudio/best[vcodec*=avc1][height<=1080][ext=mp4]/best[height<=1080][ext=mp4]",
-            "outtmpl": "multimedia/entrada.%(ext)s",
+            "outtmpl": f"{workdir}/entrada.%(ext)s",
             "merge_output_format": "mp4",
             "noplaylist": True,
             "overwrites": True,
